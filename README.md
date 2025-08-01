@@ -1,86 +1,129 @@
-# 🏥 Healthcare Data Analysis Using SQL 📊
+# 🏥 Zepto SQL Data Analysis Project 📊
 
-Welcome to the **Healthcare Data Analysis** project! In this project, we perform a detailed analysis of hospital data using **SQL**, aiming to extract meaningful insights that can help improve decision-making in the healthcare industry.
+Welcome to my end-to-end Data Analyst portfolio project, where I perform real-world SQL data analysis on Zepto's e-commerce inventory dataset using **PostgreSQL**.
 
----
-
-## 📌 Project Overview
-
-This project demonstrates how to:
-
-- Extract data from multiple sources (CSV, Excel, Databases)  
-- Clean and transform the data for consistency and reliability  
-- Load the data into a SQL database for analysis  
-- Perform complex SQL queries to analyze patient, treatment, and hospital data  
-- Visualize insights that can drive better healthcare strategies  
+This project simulates real-life business scenarios in the e-commerce space, including database design, data cleaning, and deriving insights to support inventory and pricing decisions.
 
 ---
 
-## 🧰 Tools & Technologies Used
-
-- 🐘 SQL (MySQL / PostgreSQL)  
-- 📁 CSV & Excel Files  
-- 🧹 Data Cleaning & ETL Process  
-- 🧮 Aggregate Functions, Joins, Subqueries, CTEs  
-- 📄 Final analysis report in PDF format  
-
----
-
-## 📂 Project Structure
-
-📁 Health-care-data-analysis-using-SQL/
-│
-├── 📄 HOSPITAL DATA ANA.sql # SQL script containing all queries
-├── 📄 health care analysis using SQL.pdf # PDF report with insights & results
-├── 📄 README.md # Project documentation (you’re here!)
-
-yaml
-Copy
-Edit
+## 🎓 Objective
+To showcase SQL skills through a complete data analytics workflow using PostgreSQL and a real dataset scraped from Zepto – a fast-growing Indian quick-commerce startup. The project includes:
+- Schema creation
+- Data import & cleaning
+- Exploratory data analysis (EDA)
+- Business insights extraction using SQL
 
 ---
 
-## 🔍 Key Insights from the Analysis
+## 📁 Dataset Overview
+The dataset consists of inventory data from Zepto's product listings. Each row represents a unique SKU (Stock Keeping Unit) for a product, mimicking real-world catalog data.
 
-- 📈 Hospital performance metrics  
-- 🏥 Patient admission trends  
-- 💉 Treatment success rates  
-- 🧾 Cost and billing breakdowns  
-- ⏱️ Average length of stay and turnaround times  
-- 🧑‍⚕️ Departmental efficiency comparisons  
+**Columns include:**
+- `sku_id`: Unique ID (Synthetic Primary Key)
+- `name`: Product name
+- `category`: Product category
+- `mrp`: Maximum Retail Price (in rupees)
+- `discountPercent`: Discount %
+- `discountedSellingPrice`: Final price after discount
+- `availableQuantity`: Inventory units available
+- `weightInGms`: Product weight
+- `outOfStock`: Boolean (in stock or not)
+- `quantity`: Units per package
 
 ---
 
-## 🚀 How to Use
+## ⚙️ Tools & Technologies Used
+- **Database**: PostgreSQL
+- **Interface**: pgAdmin
+- **Language**: SQL
+- **Platform**: Jupyter Notebook / Local PostgreSQL Client
 
-1. **Clone this repository**  
-   ```bash
-   git clone https://github.com/your-username/Health-care-data-analysis-using-SQL.git
-Open the SQL file in your preferred SQL tool (MySQL Workbench, pgAdmin, DBeaver, etc.)
+---
 
-Run the queries step by step to explore the data and insights
+## 📆 Project Steps
 
-Open the PDF report to view summarized findings
+### 1. 📂 Table Schema Creation
+```sql
+CREATE TABLE zepto (
+  sku_id SERIAL PRIMARY KEY,
+  category VARCHAR(120),
+  name VARCHAR(150) NOT NULL,
+  mrp NUMERIC(8,2),
+  discountPercent NUMERIC(5,2),
+  availableQuantity INTEGER,
+  discountedSellingPrice NUMERIC(8,2),
+  weightInGms INTEGER,
+  outOfStock BOOLEAN,
+  quantity INTEGER
+);
+```
 
-## 📘 Learnings & Outcome
+### 2. 📂 Data Import
+Imported the CSV into PostgreSQL using `\copy` command after fixing UTF-8 encoding issues.
+```sql
+\copy zepto(category, name, mrp, discountPercent, availableQuantity,
+      discountedSellingPrice, weightInGms, outOfStock, quantity)
+FROM 'data/zepto_v2.csv' WITH (FORMAT csv, HEADER true);
+```
 
-🧠 Improved SQL query writing skills
-🏥 Deeper understanding of healthcare data
-🔄 Applied real-world ETL process
-📊 Presented insights in structured formats
+### 3. 🔍 Data Exploration
+- Count of total records
+- Check nulls & duplicates
+- Analyze product categories
+- Stock availability overview
+- Duplicate entries with different weights/prices
 
-## 💡 Future Enhancements
+### 4. 🧹 Data Cleaning
+- Removed zero MRP/price rows
+- Converted price values from paise to rupees
 
-📉 Integrate with Power BI or Tableau
-🧠 Use ML models for predictive analysis
-🔐 Ensure patient data anonymization
+### 5. 📊 Business Analysis Using SQL
+- Top 10 best-discounted products
+- Out-of-stock expensive products
+- Revenue potential per category
+- Average discount by category
+- Value for money using price per gram
+- Weight segmentation (Low, Medium, Bulk)
 
-## 🙌 Acknowledgements
+---
 
-Thanks to open datasets and healthcare domain research that made this project possible.
-This project is intended for academic and learning purposes only.
+## 🌟 Sample Insights
+- **97% of inventory** priced under ₹500
+- **"Fruits & Vegetables"** have highest total inventory weight
+- **Top 5 discount categories**: Bakery, Snacks, Beverages...
+- Revenue potential highest in **Snacks** and **Dairy** categories
 
-📫 Contact
-Pankaj Silot
-📧 pankajsilot9@gmail.com
+---
 
+## 🌐 How to Run This Project
+1. Clone this repository
+```bash
+git clone https://github.com/pankajsilot/zepto-sql-data-analysis-project.git
+cd zepto-sql-data-analysis-project
+```
+2. Open `zepto_SQL_data_analysis.sql`
+3. Create a PostgreSQL database
+4. Import the dataset into pgAdmin
+5. Run SQL script step by step
+
+---
+
+## 🏆 Outcomes & Skills Gained
+- Structured a normalized e-commerce inventory database
+- Applied real-life SQL queries for business KPIs
+- Gained experience with messy data wrangling
+- Practiced data-driven decision-making through SQL
+
+---
+
+## 📘 References
+- [Dataset on Kaggle](https://www.kaggle.com/datasets/palvikg/zepto-inventory-dataset)
+
+---
+
+## 📚 License
+This project is licensed under the MIT License.
+
+---
+
+> ✨ If you found this helpful, feel free to give a star and check out my other portfolio projects!
